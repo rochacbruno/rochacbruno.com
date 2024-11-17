@@ -1,13 +1,49 @@
-name: Your Blog
-tagline: Things you talk about
-url: https://YOURUSER.github.io/blog
+name: Bruno Rocha
+tagline: $ echo free {software,web}
+url: 'https://rochacbruno.com'
+footer: <div>Site generated with <a href="https://github.com/rochacbruno/marmite">Marmite</a> | <small><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY_NC-SA</a></small></div>
+pagination: 10
+list_title: ~/Posts
+pages_title: ~/Pages
+tags_title: ~/Tags
+tags_content_title: Posts tagged with '$tag'
+archives_title: ~/Archive
+archives_content_title: Posts from '$year'
+authors_title: /Authors
+streams_title: ~/Streams
+content_path: content
+templates_path: templates
+static_path: static
+media_path: media
+card_image: media/banner.png
+banner_image: media/banner.png
+logo_image: ''
+enable_search: true
+default_date_format: '%b %e, %Y'
 menu:
-  - ["About", "about.html"]
-  - ["Pages", "pages.html"]
-  - ["Tags", "tags.html"]
-  - ["Follow me", "https://mastodon.social/@YOURUSER"]
-  - ["Github", "https://github.com/rochacbruno/marmite"]
-
-
-# More options available to customize the website
-# read on https://rochacbruno.github.io/marmite/tag/customization.html
+- - ~/About
+  - about.html
+- - ~/Projects
+  - projects.html
+- - ~/Tags
+  - tags.html
+- - ~/Archive
+  - archive.html
+- - ~/Streams
+  - streams.html
+extra: null
+authors:
+  rochacbruno:
+    name: Bruno Rocha
+    avatar: https://github.com/rochacbruno.png
+    bio: |
+      Principal Software Engineer at Red Hat / Ansible, Free Software Advocate, 
+      Member of The Python Software Foundation, Rust Enthusiast, Linux user since 1998,
+      living in the extreme north of Portugal.
+    links:
+      - - Social
+        - https://bruno.rocha.social
+      - - GitHub
+        - https://github.com/rochacbruno
+      - - Fediverse
+        - https://go.rocha.social/@bruno
