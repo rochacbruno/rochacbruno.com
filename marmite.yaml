@@ -1,22 +1,22 @@
 name: Bruno Rocha
 tagline: $ echo free {software,web}
 url: 'https://rochacbruno.com'
-footer: <div>Site generated with <a href="https://github.com/rochacbruno/marmite">Marmite</a> | <small><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY_NC-SA</a></small></div>
+footer: <div>Powered by <a href="https://github.com/rochacbruno/marmite">Marmite</a> | Solarized | <small><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY_NC-SA</a></small></div>
 pagination: 10
-list_title: ~/Posts
-pages_title: ~/Pages
-tags_title: ~/Tags
-tags_content_title: Posts tagged with '$tag'
-archives_title: ~/Archive
-archives_content_title: Posts from '$year'
-authors_title: /Authors
-streams_title: ~/Streams
+pages_title: $ ls ~/Pages/
+tags_title: SELECT * FROM posts GROUP BY tag
+tags_content_title: SELECT * FROM posts WHERE tag = '$tag'
+archives_title: SELECT * FROM posts GROUP BY year
+archives_content_title: SELECT * FROM posts WHERE year = '$year'
+authors_title: SELECT * FROM posts GROUP BY author
+streams_title: SELECT * FROM posts GROUP BY stream
+streams_content_title: SELECT * FROM posts WHERE stream = '$stream'
 content_path: content
 templates_path: templates
 static_path: static
 media_path: media
-card_image: media/banner.png
-banner_image: media/banner.png
+card_image: media/banner.jpg
+banner_image: media/banner.jpg
 logo_image: ''
 enable_search: true
 default_date_format: '%b %e, %Y'
@@ -29,9 +29,10 @@ menu:
   - tags.html
 - - ~/Archive
   - archive.html
-- - ~/Streams
-  - streams.html
-extra: null
+# - - ~/Streams
+#   - streams.html
+extra:
+  colorscheme: solarized
 authors:
   rochacbruno:
     name: Bruno Rocha

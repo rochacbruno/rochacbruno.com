@@ -1,82 +1,48 @@
-/* Marmite Solarized Theme */
-/* picocss.com  */
-:root {
-    --pico-border-radius: 0;
+.content-tags {
+    gap: revert;
 }
-/* Light Mode */
-[data-theme=light],
-:root:not([data-theme=dark]) {
-
-    --pico-background-color: #eee8d5;
-    --pico-card-sectioning-background-color: #eee8d5;
-    --pico-primary: #2aa198;
-    --pico-primary-hover: #859900;
-    --pico-color: #002b36;
-    --pico-tag: #cfd1d1;
-    --pico-h1-color: #073642;
+.content-tags li {
+    background-color: revert;
+    padding:2px;
+    margin:0;
 }
-[data-theme=light] .hljs {
-    background-color: #fdf6e3 !important;
-}
-[data-theme=light] pre:has(> code.language-mermaid) {
-    background-color: #fdf6e3;
-}
-[data-theme=light] article {
-    background-color: #fdf6e3;
-}
-[data-theme=light] article footer {
-    border-top: 0.1rem dashed #586e75;
-}
-[data-theme=light] .content-tags a {
-    color: #002b36;
-}
-[data-theme=light] .author-hero-links a {
-    color: #2aa198;
-}
-[data-theme=light] .author-hero-image .avatar {
-    width: 150px;
-    height: revert;
-}
-[data-theme=light] .marmite-search-bar {
-    background-color: #fdf6e3;
-    border: 0.1rem solid #586e75;
+.content-tags li a {
+    color: var(--pico-primary);
 }
 
-/* Dark Mode */
-[data-theme=dark],
-:root:not([data-theme=light]) {
+.content-tags li::before {
+    content: "#";
+    border: 0;
+    position: revert;
+    left: revert;
+}
 
-    --pico-background-color: #002b36;
-    --pico-card-sectioning-background-color: #002b36;
-    --pico-primary: #859900;
-    --pico-primary-hover: #2aa198;
-    --pico-color: #eee8d5;
-    --pico-tag: #586e75;
-    --pico-h1-color: #eee8d5;
+.header-menu li {
+    padding: revert;
+    padding-right: 16px;
 }
-[data-theme=dark] .hljs {
-    background-color: #073642 !important;
+.content-banner-image {
+    height: 200px;
 }
-[data-theme=dark] pre:has(> code.language-mermaid) {
-    background-color: #839496;
+
+
+@media (min-width: 1280px) {
+    :root {
+      --pico-font-size: 118.75%;
+    }
+  }
+@media (min-width: 1024px) {
+    .container {
+      max-width: 894px;
+    }
+  }
+@media (min-width: 1280px) {
+    .container {
+        max-width: 894px;
+    }
 }
-[data-theme=dark] article {
-    background-color: #073642;
-}
-[data-theme=dark] article footer {
-    border-top: 0.1rem dashed #586e75;
-}
-[data-theme=dark] .content-tags a {
-    color: #eee8d5;
-}
-[data-theme=dark] .author-hero-links a {
-    color: #859900;
-}
-[data-theme=dark] .author-hero-image .avatar {
-    width: 150px;
-    height: revert;
-}
-[data-theme=dark] .marmite-search-bar {
-    background-color: #073642;
-    border: 0.1rem solid #586e75;
+@media (min-width: 1536px) {
+    .container {
+        max-width: 894px;
+    }
 }
