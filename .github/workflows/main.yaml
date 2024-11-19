@@ -26,7 +26,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install marmite 🫙
-        run: cargo install marmite
+        run: cargo install --git https://github.com/rochacbruno/marmite --branch main
 
       - name: Build site 🏗️
         run: marmite . site --debug
