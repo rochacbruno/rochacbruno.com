@@ -1,48 +1,12 @@
-.content-tags {
-    gap: revert;
-}
-.content-tags li {
-    background-color: revert;
-    padding:2px;
-    margin:0;
-}
-.content-tags li a {
-    color: var(--pico-primary);
+#bike {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 0;
 }
 
-.content-tags li::before {
-    content: "#";
-    border: 0;
-    position: revert;
-    left: revert;
-}
-
-.header-menu li {
-    padding: revert;
-    padding-right: 16px;
-}
-.content-banner-image {
-    height: 200px;
-}
-
-
-@media (min-width: 1280px) {
-    :root {
-      --pico-font-size: 118.75%;
-    }
-  }
-@media (min-width: 1024px) {
-    .container {
-      max-width: 894px;
-    }
-  }
-@media (min-width: 1280px) {
-    .container {
-        max-width: 894px;
-    }
-}
-@media (min-width: 1536px) {
-    .container {
-        max-width: 894px;
+@media (min-width: 1236px) {
+    #bike {
+        display: unset;
     }
 }

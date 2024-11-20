@@ -9,6 +9,10 @@ an book Author, Member of the Python Software Foundation, Educator at LINUXtips 
 
 At the moment my **main interests** are: Federated Social Networks, ActivityPub, Software Architecture, Teaching Techniques, Rust Language, Self Hosting and digital sovereignty, Gravel or Classic Road Bikes, Progressive Metal and the magical malted water of Scotland.
 
+## My articles
+
+&rarr; [[author-rochacbruno]]
+
 ## Follow me 
 
 - Fediverse [@bruno@rocha.social](https://go.rocha.social/@bruno)
