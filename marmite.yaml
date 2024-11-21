@@ -1,6 +1,7 @@
 name: Bruno Rocha
 tagline: $ echo free {software,web}
 url: 'https://rochacbruno.com'
+language: pt
 pagination: 10
 pages_title: $ ls ~/Pages/
 tags_title: SELECT * FROM posts GROUP BY tag
@@ -33,6 +34,7 @@ menu:
 #   - streams.html
 extra:
   colorscheme: solarized
+  fediverse_verification: https://go.rocha.social/@bruno
 default_author: rochacbruno
 authors:
   rochacbruno:
