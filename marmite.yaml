@@ -35,6 +35,7 @@ menu:
 extra:
   colorscheme: solarized
   fediverse_verification: https://go.rocha.social/@bruno
+  batata: 1
 default_author: rochacbruno
 authors:
   rochacbruno:
