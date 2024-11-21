@@ -25,5 +25,3 @@ At the moment my **main interests** are: Federated Social Networks, ActivityPub,
 [[uses]]
 
 [![pgp](https://img.shields.io/badge/pgp-E24F121A3F9DAC02E7FB1885AB110BDC10ED0A39-313131?style=flat&labelColor=545454&color=313131)](https://keyoxide.org/E24F121A3F9DAC02E7FB1885AB110BDC10ED0A39)
-
-:)
