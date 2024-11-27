@@ -1,6 +1,7 @@
 ---
 banner_image:  media/saramago.jpg
 tags: imo
+toc: true
 ---
 
 # Sobre expressar preferências na internet.
@@ -14,7 +15,7 @@ Felizmente eu percebi que isso não estava sendo legal, que aqueles comentários
 Eu não vou nomear todos os objetos dessas escolhas, mas podem ser, por exemplo: linguagem de programação, framework, rede social, alimentação, posição politica, sistema operacional, etc.
 
 >>>
-“Aprendi a não tentar convencer ninguém. O trabalho de convencer é uma falta de respeito, é uma tentativa de colonização do outro.” 
+“Aprendi a não tentar convencer ninguém. O trabalho de convencer é uma falta de respeito, é uma tentativa de colonização do outro.”
 &mdash; Saramago
 >>>
 

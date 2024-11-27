@@ -21,6 +21,8 @@ banner_image: media/banner.jpg
 logo_image: ''
 enable_search: true
 default_date_format: '%b %e, %Y'
+toc: true
+json_feed: true
 menu:
 - - ~/About
   - about.html
