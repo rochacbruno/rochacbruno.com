@@ -1,6 +1,6 @@
 ## Hi, I'm Bruno Rocha
 
-<img src="https://github.com/rochacbruno.png" style="width: 150px;margin: 8px;" align="left">
+<img src="./media/avatar.jpg" style="width: 150px;margin: 8px;" align="left">
 
 Currently I am coding at [Red Hat] for the [Ansible Automation Platform].
 

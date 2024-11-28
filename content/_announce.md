@@ -1,0 +1,1 @@
+Meus cursos de Python estão em promoção na [LINUXtips]

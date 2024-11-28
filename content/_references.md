@@ -15,7 +15,9 @@
 [Ansible Github]: https://github.com/ansible
 [Ansible Automation Platform]: https://ansible.com
 [Youtube]: https://youtube.com/@codeshowbr
+[Codeshow]: https://youtube.com/@codeshowbr
 [Twitch]: https://twitch.tv/codeshow
 [py2rs]: https://rochacbruno.github.io/py2rs/
 [rss2bsky]: https://github.com/rochacbruno/rss2bsky
 [blog]: https://rochacbruno.com
+[LinuxTips]: https://linuxtips.io/instrutor/bruno-rocha/

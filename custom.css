@@ -10,3 +10,21 @@
         display: unset;
     }
 }
+
+article {
+    padding: 0;
+}
+
+/* Light Mode */
+[data-theme=light],
+:root:not([data-theme=dark]) {
+    --pico-background-color: var(--pico-card-background-color);
+    --pico-card-box-shadow: none;
+}
+
+/* Dark Mode */
+[data-theme=dark],
+:root:not([data-theme=light]) {
+    --pico-card-box-shadow: none;
+    --pico-background-color: var(--pico-card-background-color);
+}
