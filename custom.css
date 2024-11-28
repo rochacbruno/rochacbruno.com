@@ -11,8 +11,25 @@
     }
 }
 
+@media (max-width: 762px) {
+    .hero-grid {
+        display: block;
+    }
+    .hero-grid .avatar {
+        display: none;
+    }
+}
+
 article {
     padding: 0;
+}
+
+article footer {
+    padding-bottom: 40px;
+}
+
+.content-title {
+    margin-top: 10px;
 }
 
 /* Light Mode */

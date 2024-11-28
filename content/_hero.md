@@ -1,7 +1,7 @@
-<div class="grid h-card" style="grid-template-columns: 1fr 4fr;">
+<div class="grid h-card hero-grid" style="grid-template-columns: 1fr 4fr;">
 
-<div style="align-content: center;">
-<img src="./media/avatar.jpg" style="width: 150px;margin: 8px;" class="p-photo" align="left">
+<div class="" style="align-content: center;">
+<img src="./media/avatar.jpg" style="width: 150px;margin: 8px;" class="p-photo avatar">
 </div>
 <div>
 
