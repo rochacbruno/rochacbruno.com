@@ -17,7 +17,7 @@ templates_path: templates
 static_path: static
 media_path: media
 card_image: media/banner.jpg
-banner_image: media/banner.jpg
+# banner_image: media/banner.jpg
 logo_image: ''
 enable_search: true
 default_date_format: '%b %e, %Y'
@@ -37,7 +37,7 @@ menu:
 extra:
   colorscheme: solarized
   fediverse_verification: https://go.rocha.social/@bruno
-  batata: 1
+  batata: 2
 default_author: rochacbruno
 authors:
   rochacbruno:
