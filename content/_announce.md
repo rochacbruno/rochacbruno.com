@@ -1,1 +1,1 @@
-Meus cursos de Python estão em promoção na [LINUXtips]
+⭐ **NOVIDADE!** treinamento **[Python para DevOps]** na LINUXTips

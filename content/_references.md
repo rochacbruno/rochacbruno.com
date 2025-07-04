@@ -21,3 +21,7 @@
 [rss2bsky]: https://github.com/rochacbruno/rss2bsky
 [blog]: https://rochacbruno.com
 [LinuxTips]: https://linuxtips.io/instrutor/bruno-rocha/
+[Python Base]: https://linuxtips.io/instrutor/bruno-rocha/
+[Python Web]:  https://linuxtips.io/instrutor/bruno-rocha/
+[Python DevOps]: https://linuxtips.io/python-para-devops/
+[Python para DevOps]: https://linuxtips.io/python-para-devops/
