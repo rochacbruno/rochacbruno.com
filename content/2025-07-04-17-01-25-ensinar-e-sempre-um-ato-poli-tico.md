@@ -1,9 +1,10 @@
 ---
+banner_image: media/phc.png
 tags: ensino,política
 ---
 # Ensinar é sempre um ato político
 
-Se você, assim como eu, compartilha conhecimento em vídeo, texto ou qualquer outro formato nas redes, já deve ter se perguntado se isso que a gente faz é só um “conteúdo” descartável, efemero, datado ou se tem algo mais por trás, algo maior que é produto da nossa criação de conteúdo.  
+Se você, assim como eu, compartilha conhecimento em vídeo, texto ou qualquer outro formato nas redes, já deve ter se perguntado se isso que a gente faz é só um “conteúdo” descartável, efemero, datado ou se tem algo mais por trás, algo maior que é produto da nossa criação de conteúdo.
 
 Eu sempre fui fascinado por ensino, técnicas de ensino, as diferentes formas que as pessoas aprendem, mesmo eu me identificando como um Engenheiro de Software, e atualmente estar me dedicando a contribuir individualmente com desenvolvimento de produtos em uma empresa, a minha paixão sempre foi o ensino e estou sempre em busca de maneiras de entender e melhorar a forma como eu ensino.
 
@@ -11,9 +12,9 @@ Desde 2013, motivado por eventos politicos importantes, eu tenho usado meu tempo
 
 ## Eu já sabia o que era, só não sabia o nome disso
 
-E o curioso é que **eu comecei a aplicar a lógica da PHC muito antes de saber que ela existia formalmente**, eu dou aulas desde 1999, durante este tempo sempre fui questionador do ensino tradicional, eu fui um péssimo aluno na escola justamente por não gostar dos métodos de ensino.  
+E o curioso é que **eu comecei a aplicar a lógica da PHC muito antes de saber que ela existia formalmente**, eu dou aulas desde 1999, durante este tempo sempre fui questionador do ensino tradicional, eu fui um péssimo aluno na escola justamente por não gostar dos métodos de ensino.
 
-Entre idas e vindas entre atuar como professor e programador, eu fui experimentando e adquirindo uma forma meio instintiva de ensinar, um modelo que venho sempre tentanto aperfeiçoar.  
+Entre idas e vindas entre atuar como professor e programador, eu fui experimentando e adquirindo uma forma meio instintiva de ensinar, um modelo que venho sempre tentanto aperfeiçoar.
 
 Só depois de muitos anos que topei com o nome do [Dermeval Saviani], tudo começou a fazer sentido. Foi tipo quando você encontra um manual explicando aquilo que você já vinha fazendo meio no feeling. As peças se encaixaram.
 
@@ -21,9 +22,9 @@ Nesse post minha intenção é mostrar **por que a PHC importa**, inclusive pra 
 
 ## **Educar é mais do que ensinar uma técnica**
 
-A PHC parte de uma ideia que, pra mim faz muito sentido: **ensinar é sempre um ato político**. E não é sobre política partidária, mas sim de reconhecer que **todo ensino carrega uma intenção**.  
+A PHC parte de uma ideia que, pra mim faz muito sentido: **ensinar é sempre um ato político**. E não é sobre política partidária, mas sim de reconhecer que **todo ensino carrega uma intenção**.
 
-Não existe ensino neutro. Você pode estar formando alguém pra repetir, ou pra questionar. Pra obedecer, ou pra transformar.  
+Não existe ensino neutro. Você pode estar formando alguém pra repetir, ou pra questionar. Pra obedecer, ou pra transformar.
 
 No fundo, a proposta é ensinar pra **além da técnica**, da decoreba, do "passo a passo". Ensinar pra que a pessoa compreenda **o mundo em que vive e possa agir sobre ele**. É dar contexto. É ajudar a pessoa a se localizar na realidade e pensar: beleza, entendi isso — e agora, o que eu faço com isso?
 
@@ -51,7 +52,7 @@ Isso vale pra ensinar programação, matemática, história, como usar uma ferra
 
 Digamos que você tá ensinando alguém a automatizar tarefas com **Python**. O caminho tradicional seria começar mostrando o que é `print()`, o que é `for`, o que é uma função.
 
-Mas na PHC, você começa diferente: “o que tá te tomando tempo no dia a dia? O que dá pra resolver com código?”.  
+Mas na PHC, você começa diferente: “o que tá te tomando tempo no dia a dia? O que dá pra resolver com código?”.
 
 A maioria dos cursos começa dizendo o que é uma variável, o que é um if, etc. Mas na PHC, o ponto de partida seria a realidade do aluno: por que essa pessoa quer aprender Python? Onde ela poderia aplicar isso na vida real?
 
@@ -73,7 +74,7 @@ Mas essas coisas **Não fazem sentido** para quem está aprendendo a programar, 
 
 E então no decorrer deste exercicio vou pontuando os problemas, as dificuldades, ai eu provovo: "Imagina que só existisse essa forma de programar?", "Imagine se existisse um jeito melhor?".
 
-Somente depois que o problema foi situado, que eu apresento o que é **classe**, o que é **herança**, o que é **modelagem de dados**, padrões de repositório, **ORM** etc, o que a Orientação a objetos pode resolver, e então assim que está tudo ensinado e fazendo sentido na prática, eu provoco novamente!  
+Somente depois que o problema foi situado, que eu apresento o que é **classe**, o que é **herança**, o que é **modelagem de dados**, padrões de repositório, **ORM** etc, o que a Orientação a objetos pode resolver, e então assim que está tudo ensinado e fazendo sentido na prática, eu provoco novamente!
 
 Começo a mostrar os problemas de **POO**, onde ela falha, e essa é a deixa para mostrar o paradigma funcional, que a partir de agora começa a fazer sentido real.
 
@@ -86,7 +87,7 @@ No Treinamento [Python para DevOps] eu to aplicando uma otimização a este mode
 
 ## **Uma pedagogia que acolhe o mundo real**
 
-Como já mencionei, eu comecei a ensinar por volta de 1999, fui adquirindo uma experiência, um senso automático de como ensinar, eu já estava ensinando  desta forma faz tempo mas entender a PHC me deu mais firmeza, me fez enxergar que **o que eu fazia não era bagunçado ou “menos sério”** por não seguir os modelos tradicionais de ensino. 
+Como já mencionei, eu comecei a ensinar por volta de 1999, fui adquirindo uma experiência, um senso automático de como ensinar, eu já estava ensinando  desta forma faz tempo mas entender a PHC me deu mais firmeza, me fez enxergar que **o que eu fazia não era bagunçado ou “menos sério”** por não seguir os modelos tradicionais de ensino.
 
 Muito pelo contrário: tem uma pedagogia que legitima, dá base, e diz “é isso mesmo, educar é partir da realidade concreta e voltar pra ela — só que com mais ferramentas”.
 
