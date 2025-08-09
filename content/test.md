@@ -1,9 +1,7 @@
 ---
 title: Markdown Formatting Options
-date: 2024-10-17 12:00:01
 slug: markdown-format
 description: The content on Marmite accepts any valid CommonMark or Github Flavoured markdown and some GFM extensions.
-tags: docs, markdown, Common Mark, GFM
 authors: rochacbruno,karlamagueta,john
 extra:
   math: true
