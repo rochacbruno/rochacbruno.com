@@ -1,0 +1,21 @@
+name: "CDE Desktop (click to zoom)"  # Display name for the gallery
+ord: asc                      # Sort order: asc or desc
+cover: "CDE_DEsktop_Original.png"          # Cover image (defaults to first image)
+
+# Optional: Image descriptions
+images:
+  # Exact match (case insensitive)
+  - filename: "CDE_DEsktop_Original.png"
+    description: "Original CDE Desktop"
+  
+  # Partial match - matches any file containing "palm"
+  - filename: "NsCDE_Desktop.png"
+    description: "NsCDE Desktop"
+  
+  # Regex pattern - matches files starting with "DSC"
+  - filename: "my_kde_desktop.png"
+    description: "My KDE Desktop"
+  
+  # Catch-all pattern - matches any remaining images
+  - filename: "*"
+    description: "CDE Desktop"

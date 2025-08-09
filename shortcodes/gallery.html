@@ -1,0 +1,514 @@
+{# Display a gallery of images #}
+{% macro gallery(path, ord="", width="100%", height="100%", name="", cover="") %}
+{% set gallery_data = get_gallery(path=path) %}
+
+{% if gallery_data %}
+    
+    {# Override values if provided #}
+    {% if name %}
+        {% set gallery_name = name %}
+    {% else %}
+        {% set gallery_name = gallery_data.name %}
+    {% endif %}
+    
+    {% if cover %}
+        {% set cover_image = cover %}
+    {% else %}
+        {% set cover_image = gallery_data.cover %}
+    {% endif %}
+    
+    {# Sort files based on ord parameter #}
+    {% if ord == "desc" %}
+        {% set sorted_files = gallery_data.files | reverse %}
+    {% else %}
+        {% set sorted_files = gallery_data.files %}
+    {% endif %}
+    
+    <div class="shortcode-gallery" id="gallery-{{ path }}" style="margin: 20px 0;">
+        <h3 class="gallery-title">{{ gallery_name }}</h3>
+        
+        {# Main image panel #}
+        <div class="gallery-main-panel" style="position: relative; width: {{ width }}; height: {{ height }}; margin: 0 auto; overflow: hidden; background: #f0f0f0; display: flex; align-items: center; justify-content: center;">
+            <img id="gallery-{{ path }}-main-image" 
+                 src="{{ url_for(path=site_data.site.media_path ~ '/' ~ site_data.site.gallery_path ~ '/' ~ path ~ '/' ~ cover_image) }}" 
+                 alt="{{ gallery_name }}"
+                 style="max-width: 100%; max-height: 100%; object-fit: contain; cursor: pointer;"
+                 onclick="zoomImage('gallery-{{ path }}')"
+            />
+            {# Description overlay #}
+            <div id="gallery-{{ path }}-description" class="gallery-description" style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0, 0, 0, 0.7); color: white; padding: 10px 15px; display: none; font-family: sans-serif; font-size: 14px;">
+                {# Description will be populated by JavaScript #}
+            </div>
+        </div>
+        
+        {# Thumbnail slider #}
+        <div class="gallery-thumbnail-container" style="position: relative; margin-top: 10px;">
+            <button class="gallery-nav-prev" onclick="scrollGallery('gallery-{{ path }}', -1)" style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); z-index: 10; background: rgba(0,0,0,0.5); color: white; border: none; padding: 10px; cursor: pointer;">‹</button>
+            <div class="gallery-thumbnail-scroll" id="gallery-{{ path }}-scroll" style="overflow-x: hidden; white-space: nowrap; scroll-behavior: smooth; margin: 0 40px;">
+                <div class="gallery-thumbnail-wrapper" style="display: inline-flex; gap: 5px;">
+                    {% for item in sorted_files %}
+                    <img src="{{ url_for(path=site_data.site.media_path ~ '/' ~ site_data.site.gallery_path ~ '/' ~ path ~ '/' ~ item.thumb) }}" 
+                         data-full="{{ url_for(path=site_data.site.media_path ~ '/' ~ site_data.site.gallery_path ~ '/' ~ path ~ '/' ~ item.image) }}"
+                         data-description="{{ item.description | default(value='') }}"
+                         alt="{{ item.image }}"
+                         style="width: 50px; height: 50px; object-fit: cover; cursor: pointer; border: 2px solid transparent;"
+                         onclick="selectImage('gallery-{{ path }}', this)"
+                         class="gallery-thumbnail {% if item.image == cover_image %}selected{% endif %}"
+                    />
+                    {% endfor %}
+                </div>
+            </div>
+            <button class="gallery-nav-next" onclick="scrollGallery('gallery-{{ path }}', 1)" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); z-index: 10; background: rgba(0,0,0,0.5); color: white; border: none; padding: 10px; cursor: pointer;">›</button>
+        </div>
+    </div>
+    
+    {# Zoom overlay #}
+    <div id="gallery-{{ path }}-overlay" class="gallery-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; cursor: pointer;" onclick="closeZoom('gallery-{{ path }}')">
+        <div id="gallery-{{ path }}-zoom-container" class="gallery-zoom-container" style="position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+            {# Description sidebar - positioned relative to container #}
+            <div id="gallery-{{ path }}-zoom-description" class="gallery-zoom-description" style="background: rgba(0, 0, 0, 0.9); color: white; padding: 20px; font-family: sans-serif; font-size: 16px; display: none; overflow-y: auto; flex-shrink: 0; position: relative;">
+                {# Collapse button inside sidebar #}
+                <button id="gallery-{{ path }}-collapse-btn" onclick="toggleSidebar('gallery-{{ path }}')" style="position: absolute; right: 10px; top: 10px; background: rgba(255, 255, 255, 0.1); border: none; color: white; cursor: pointer; padding: 5px 10px; border-radius: 3px; font-size: 18px;">‹</button>
+                <div id="gallery-{{ path }}-description-content" style="margin-right: 30px;">
+                    {# Description will be populated by JavaScript #}
+                </div>
+            </div>
+            {# Expand button - shown when sidebar is collapsed #}
+            <button id="gallery-{{ path }}-expand-btn" onclick="toggleSidebar('gallery-{{ path }}')" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.7); border: none; color: white; cursor: pointer; padding: 10px 8px; border-radius: 0 3px 3px 0; font-size: 18px; display: none; z-index: 10;">›</button>
+            {# Image wrapper for flexible sizing #}
+            <div id="gallery-{{ path }}-image-wrapper" style="flex: 1; display: flex; align-items: center; justify-content: center; height: 100%;">
+                <img id="gallery-{{ path }}-zoom-image" src="" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+            </div>
+        </div>
+        <div id="gallery-{{ path }}-counter" style="position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.7); color: white; padding: 8px 16px; border-radius: 20px; font-size: 16px; font-family: sans-serif;">
+            <span id="gallery-{{ path }}-current" style="pointer-events: none;">1</span> <span style="pointer-events: none;">/</span> <span id="gallery-{{ path }}-total" style="pointer-events: none;">{{ sorted_files | length }}</span>
+            <span id="gallery-{{ path }}-close" style="cursor: pointer; margin-left: 10px; font-size: 18px; font-weight: bold; display: inline-block; width: 20px; height: 20px; line-height: 18px; text-align: center;" onclick="closeZoom('gallery-{{ path }}')">×</span>
+        </div>
+    </div>
+    
+    <style>
+        #gallery-{{ path }} .gallery-thumbnail.selected {
+            border-color: #007bff !important;
+        }
+        #gallery-{{ path }} .gallery-thumbnail:hover {
+            border-color: #ccc !important;
+        }
+        #gallery-{{ path }}-close:hover {
+            opacity: 0.8;
+            transform: scale(1.1);
+        }
+        #gallery-{{ path }}-collapse-btn:hover,
+        #gallery-{{ path }}-expand-btn:hover {
+            background: rgba(255, 255, 255, 0.2) !important;
+        }
+        #gallery-{{ path }} .gallery-description a,
+        #gallery-{{ path }}-zoom-description a {
+            color: #87CEEB;
+            text-decoration: underline;
+        }
+        #gallery-{{ path }} .gallery-description a:hover,
+        #gallery-{{ path }}-zoom-description a:hover {
+            color: #ADD8E6;
+        }
+        /* Desktop zoom layout */
+        @media (min-width: 769px) {
+            #gallery-{{ path }}-zoom-container.sidebar-mode {
+                flex-direction: row !important;
+            }
+            
+            #gallery-{{ path }}-zoom-container.bottom-mode {
+                flex-direction: column !important;
+            }
+            
+            #gallery-{{ path }}-zoom-description {
+                border-radius: 8px;
+            }
+            
+            /* Sidebar mode */
+            #gallery-{{ path }}-zoom-container.sidebar-mode #gallery-{{ path }}-zoom-description {
+                width: 300px;
+                max-width: 300px;
+                height: 80vh;
+                max-height: 80vh;
+                margin-right: 20px;
+            }
+            
+            /* Bottom mode */
+            #gallery-{{ path }}-zoom-container.bottom-mode #gallery-{{ path }}-zoom-description {
+                width: auto;
+                max-width: 90%;
+                height: auto;
+                max-height: 150px;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            #gallery-{{ path }}-zoom-container.bottom-mode #gallery-{{ path }}-image-wrapper {
+                max-height: calc(100% - 200px);
+            }
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            #gallery-{{ path }}-zoom-description {
+                display: none !important;
+            }
+        }
+    </style>
+    
+    <script>
+        // Store current image index and sidebar state for each gallery
+        window.galleryIndices = window.galleryIndices || {};
+        window.galleryIndices['{{ path }}'] = 0;
+        window.gallerySidebarState = window.gallerySidebarState || {};
+        window.gallerySidebarState['{{ path }}'] = true; // Sidebar open by default
+        
+        function selectImage(galleryId, thumbElement, updateIndex = true) {
+            const mainImage = document.getElementById(galleryId + '-main-image');
+            const fullImageUrl = thumbElement.getAttribute('data-full');
+            const description = thumbElement.getAttribute('data-description');
+            mainImage.src = fullImageUrl;
+            
+            // Update description in main view
+            const descriptionDiv = document.getElementById(galleryId + '-description');
+            if (description && description.trim() !== '') {
+                descriptionDiv.innerHTML = description;
+                descriptionDiv.style.display = 'block';
+            } else {
+                descriptionDiv.style.display = 'none';
+            }
+            
+            // Update selected thumbnail
+            const allThumbs = document.querySelectorAll('#' + galleryId + ' .gallery-thumbnail');
+            allThumbs.forEach(thumb => thumb.classList.remove('selected'));
+            thumbElement.classList.add('selected');
+            
+            // Update current index
+            if (updateIndex) {
+                const thumbs = Array.from(allThumbs);
+                window.galleryIndices[galleryId.replace('gallery-', '')] = thumbs.indexOf(thumbElement);
+            }
+        }
+        
+        function navigateGallery(galleryId, direction) {
+            const allThumbs = document.querySelectorAll('#' + galleryId + ' .gallery-thumbnail');
+            const galleryPath = galleryId.replace('gallery-', '');
+            let currentIndex = window.galleryIndices[galleryPath] || 0;
+            
+            // Calculate new index
+            currentIndex += direction;
+            if (currentIndex < 0) currentIndex = allThumbs.length - 1;
+            if (currentIndex >= allThumbs.length) currentIndex = 0;
+            
+            // Update current index
+            window.galleryIndices[galleryPath] = currentIndex;
+            
+            // Select the image
+            if (allThumbs[currentIndex]) {
+                selectImage(galleryId, allThumbs[currentIndex], false);
+                
+                // Ensure thumbnail is visible
+                const scrollContainer = document.getElementById(galleryId + '-scroll');
+                const thumb = allThumbs[currentIndex];
+                const thumbLeft = thumb.offsetLeft;
+                const thumbRight = thumbLeft + thumb.offsetWidth;
+                const scrollLeft = scrollContainer.scrollLeft;
+                const scrollRight = scrollLeft + scrollContainer.offsetWidth;
+                
+                if (thumbLeft < scrollLeft) {
+                    scrollContainer.scrollLeft = thumbLeft - 10;
+                } else if (thumbRight > scrollRight) {
+                    scrollContainer.scrollLeft = thumbRight - scrollContainer.offsetWidth + 10;
+                }
+                
+                // Update zoom image if overlay is open
+                const overlay = document.getElementById(galleryId + '-overlay');
+                if (overlay.style.display === 'block') {
+                    const zoomImage = document.getElementById(galleryId + '-zoom-image');
+                    zoomImage.src = allThumbs[currentIndex].getAttribute('data-full');
+                    
+                    // Update zoom description
+                    const description = allThumbs[currentIndex].getAttribute('data-description');
+                    updateZoomDescription(galleryId, description);
+                    
+                    // Update position counter
+                    const currentSpan = document.getElementById(galleryId + '-current');
+                    if (currentSpan) {
+                        currentSpan.textContent = currentIndex + 1;
+                    }
+                }
+            }
+        }
+        
+        function scrollGallery(galleryId, direction) {
+            // Navigate to next/previous image
+            navigateGallery(galleryId, direction);
+        }
+        
+        function zoomImage(galleryId) {
+            const mainImage = document.getElementById(galleryId + '-main-image');
+            const overlay = document.getElementById(galleryId + '-overlay');
+            const zoomImage = document.getElementById(galleryId + '-zoom-image');
+            
+            zoomImage.src = mainImage.src;
+            overlay.style.display = 'block';
+            
+            // Set up keyboard navigation for this gallery
+            overlay.dataset.galleryId = galleryId;
+            
+            // Update position counter with current index
+            const galleryPath = galleryId.replace('gallery-', '');
+            const currentIndex = window.galleryIndices[galleryPath] || 0;
+            const currentSpan = document.getElementById(galleryId + '-current');
+            if (currentSpan) {
+                currentSpan.textContent = currentIndex + 1;
+            }
+            
+            // Show description in zoom view
+            const allThumbs = document.querySelectorAll('#' + galleryId + ' .gallery-thumbnail');
+            if (allThumbs[currentIndex]) {
+                const description = allThumbs[currentIndex].getAttribute('data-description');
+                updateZoomDescription(galleryId, description);
+            }
+        }
+        
+        function updateZoomDescription(galleryId, description) {
+            const zoomDescDiv = document.getElementById(galleryId + '-zoom-description');
+            const descContent = document.getElementById(galleryId + '-description-content');
+            const zoomContainer = document.getElementById(galleryId + '-zoom-container');
+            const zoomImage = document.getElementById(galleryId + '-zoom-image');
+            const expandBtn = document.getElementById(galleryId + '-expand-btn');
+            const galleryPath = galleryId.replace('gallery-', '');
+            const sidebarOpen = window.gallerySidebarState[galleryPath];
+            
+            if (!description || description.trim() === '' || window.innerWidth <= 768) {
+                zoomDescDiv.style.display = 'none';
+                expandBtn.style.display = 'none';
+                zoomContainer.classList.remove('sidebar-mode', 'bottom-mode');
+                return;
+            }
+            
+            descContent.innerHTML = description;
+            
+            // Show/hide based on sidebar state
+            if (sidebarOpen) {
+                zoomDescDiv.style.display = 'block';
+                expandBtn.style.display = 'none';
+            } else {
+                zoomDescDiv.style.display = 'none';
+                expandBtn.style.display = 'block';
+            }
+            
+            // Wait for image to load to get actual dimensions
+            if (zoomImage.complete) {
+                positionDescription();
+            } else {
+                zoomImage.onload = positionDescription;
+            }
+            
+            function positionDescription() {
+                // Get natural dimensions of the image
+                const imageAspectRatio = zoomImage.naturalWidth / zoomImage.naturalHeight;
+                const windowWidth = window.innerWidth;
+                const windowHeight = window.innerHeight;
+                const windowAspectRatio = windowWidth / windowHeight;
+                
+                // Reset classes
+                zoomContainer.classList.remove('sidebar-mode', 'bottom-mode');
+                
+                // Calculate if image would leave space for sidebar
+                const sidebarWidth = 320; // 300px + margins
+                const availableWidthWithSidebar = windowWidth - sidebarWidth;
+                const imageHeightIfFullHeight = windowHeight;
+                const imageWidthIfFullHeight = imageHeightIfFullHeight * imageAspectRatio;
+                
+                // Use sidebar if image at full height would leave enough space
+                if (imageWidthIfFullHeight < availableWidthWithSidebar && windowWidth > 1024) {
+                    zoomContainer.classList.add('sidebar-mode');
+                    // Show expand button only in sidebar mode when sidebar is closed
+                    if (!sidebarOpen) {
+                        expandBtn.style.display = 'block';
+                    }
+                } else {
+                    // Otherwise use bottom mode
+                    zoomContainer.classList.add('bottom-mode');
+                    // Hide expand button in bottom mode
+                    expandBtn.style.display = 'none';
+                }
+            }
+        }
+        
+        function toggleSidebar(galleryId) {
+            const galleryPath = galleryId.replace('gallery-', '');
+            const isOpen = window.gallerySidebarState[galleryPath];
+            window.gallerySidebarState[galleryPath] = !isOpen;
+            
+            const descDiv = document.getElementById(galleryId + '-zoom-description');
+            const expandBtn = document.getElementById(galleryId + '-expand-btn');
+            const container = document.getElementById(galleryId + '-zoom-container');
+            
+            if (!isOpen) {
+                // Opening sidebar
+                descDiv.style.display = 'block';
+                expandBtn.style.display = 'none';
+            } else {
+                // Closing sidebar
+                descDiv.style.display = 'none';
+                expandBtn.style.display = 'block';
+            }
+        }
+        
+        function closeZoom(galleryId) {
+            const overlay = document.getElementById(galleryId + '-overlay');
+            overlay.style.display = 'none';
+        }
+        
+        // Touch gesture handling
+        function setupTouchHandlers(element, galleryId) {
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let touchEndX = 0;
+            let touchEndY = 0;
+            
+            element.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            }, { passive: true });
+            
+            element.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                touchEndY = e.changedTouches[0].screenY;
+                handleSwipe();
+            }, { passive: true });
+            
+            function handleSwipe() {
+                const deltaX = touchEndX - touchStartX;
+                const deltaY = touchEndY - touchStartY;
+                const minSwipeDistance = 50; // Minimum distance for a swipe
+                
+                // Check if horizontal swipe is more prominent than vertical
+                if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
+                    if (deltaX > 0) {
+                        // Swipe right - go to previous image
+                        navigateGallery(galleryId, -1);
+                    } else {
+                        // Swipe left - go to next image
+                        navigateGallery(galleryId, 1);
+                    }
+                }
+            }
+        }
+        
+        // Setup touch handlers for main panel
+        document.addEventListener('DOMContentLoaded', function() {
+            const mainPanel = document.querySelector('#gallery-{{ path }} .gallery-main-panel');
+            if (mainPanel) {
+                setupTouchHandlers(mainPanel, 'gallery-{{ path }}');
+            }
+            
+            // Set initial description for cover image
+            const selectedThumb = document.querySelector('#gallery-{{ path }} .gallery-thumbnail.selected');
+            if (selectedThumb) {
+                const description = selectedThumb.getAttribute('data-description');
+                const descriptionDiv = document.getElementById('gallery-{{ path }}-description');
+                if (description && description.trim() !== '') {
+                    descriptionDiv.innerHTML = description;
+                    descriptionDiv.style.display = 'block';
+                }
+            }
+            
+            // Handle window resize for zoom description positioning
+            let resizeTimeout;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(function() {
+                    const overlay = document.getElementById('gallery-{{ path }}-overlay');
+                    if (overlay && overlay.style.display === 'block') {
+                        const galleryPath = 'gallery-{{ path }}';
+                        const currentIndex = window.galleryIndices['{{ path }}'] || 0;
+                        const allThumbs = document.querySelectorAll('#' + galleryPath + ' .gallery-thumbnail');
+                        if (allThumbs[currentIndex]) {
+                            const description = allThumbs[currentIndex].getAttribute('data-description');
+                            updateZoomDescription(galleryPath, description);
+                        }
+                    }
+                }, 100);
+            });
+            
+            // Setup touch handlers for zoom overlay
+            const zoomOverlay = document.getElementById('gallery-{{ path }}-overlay');
+            if (zoomOverlay) {
+                // Prevent default click close on swipe
+                let swiping = false;
+                let touchStartX = 0;
+                let touchStartY = 0;
+                
+                zoomOverlay.addEventListener('touchstart', function(e) {
+                    swiping = false;
+                    touchStartX = e.changedTouches[0].screenX;
+                    touchStartY = e.changedTouches[0].screenY;
+                }, { passive: true });
+                
+                zoomOverlay.addEventListener('touchend', function(e) {
+                    const touchEndX = e.changedTouches[0].screenX;
+                    const touchEndY = e.changedTouches[0].screenY;
+                    const deltaX = touchEndX - touchStartX;
+                    const deltaY = touchEndY - touchStartY;
+                    
+                    // If it was a swipe, don't close the overlay
+                    if (Math.abs(deltaX) > 50 || Math.abs(deltaY) > 50) {
+                        swiping = true;
+                        e.stopPropagation();
+                    }
+                }, { passive: true });
+                
+                // Override the onclick to check for swipes and counter clicks
+                zoomOverlay.onclick = function(e) {
+                    // Don't close if clicking on the counter div or its children (except close button)
+                    const counter = document.getElementById('gallery-{{ path }}-counter');
+                    if (counter && counter.contains(e.target) && e.target.id !== 'gallery-{{ path }}-close') {
+                        return;
+                    }
+                    
+                    if (!swiping && (e.target === zoomOverlay || e.target.id === 'gallery-{{ path }}-close')) {
+                        closeZoom('gallery-{{ path }}');
+                    }
+                    swiping = false;
+                };
+                
+                // Setup swipe handlers for the overlay
+                setupTouchHandlers(zoomOverlay, 'gallery-{{ path }}');
+            }
+        });
+        
+        // Global keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            // Find visible overlay
+            const overlays = document.querySelectorAll('.gallery-overlay[style*="block"]');
+            if (overlays.length > 0) {
+                const overlay = overlays[0];
+                const galleryId = overlay.dataset.galleryId;
+                
+                switch(e.key) {
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        navigateGallery(galleryId, -1);
+                        break;
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        navigateGallery(galleryId, 1);
+                        break;
+                    case 'Escape':
+                        e.preventDefault();
+                        closeZoom(galleryId);
+                        break;
+                }
+            }
+        });
+    </script>
+{% else %}
+    <div class="gallery-error" style="border: 1px solid #f00; padding: 10px; margin: 20px 0; background: #fee;">
+        Gallery not found: {{ path }}
+    </div>
+{% endif %}
+{% endmacro gallery %}
