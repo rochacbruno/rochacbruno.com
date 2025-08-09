@@ -1,5 +1,5 @@
 ---
-tags: marmite,theme,cde,english
+tags: marmite,theme,cde,english,retro,kde
 ---
 # CDE Motif-Inspired Theme for Marmite Blog
 
