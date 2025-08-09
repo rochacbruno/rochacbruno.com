@@ -35,7 +35,7 @@ menu:
 # - - ~/Streams
 #   - streams.html
 extra:
-  colorscheme: solarized
+  # colorscheme: solarized
   fediverse_verification: https://go.rocha.social/@bruno
   batata: 2
 default_author: rochacbruno
@@ -56,3 +56,7 @@ authors:
         - https://go.rocha.social/@bruno
       - - About 
         - about.html
+theme: cde
+publish_md: true  
+source_repository: "https://github.com/rochacbruno/rochacbruno.com.br/tree/main/content"
+image_provider: picsum

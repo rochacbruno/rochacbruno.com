@@ -1,9 +1,9 @@
-<div class="grid h-card hero-grid" style="grid-template-columns: 1fr 4fr;">
+<div class="hero-grid h-card">
 
-<div class="" style="align-content: center;">
-<img src="./media/avatar.jpg" style="width: 150px;margin: 8px;" class="p-photo avatar">
+<div class="hero-image">
+<img src="./media/avatar.jpg" class="p-photo avatar">
 </div>
-<div>
+<div class="hero-text">
 
 Eu escrevo sobre programação com [[#Python|tag-python]] e [[#Rust|tag-rust]]  
 e assuntos relacionados a [[#freesoftware|tag-freesoftware]] e [[#freeweb|tag-freeweb]].  

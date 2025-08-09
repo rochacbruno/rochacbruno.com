@@ -1,0 +1,39 @@
+{
+  "name": "CDE - Common Desktop Environment",
+  "version": "1.0.0",
+  "author": "Bruno Rocha",
+  "description": "A nostalgic theme inspired by the Common Desktop Environment (CDE) from classic Unix workstations. Features authentic CDE/Motif design with window-based layout, 3D beveled borders, and classic color schemes.",
+  "repository": "https://github.com/rochacbruno/marmite-cde-theme",
+  "license": "MIT",
+  "tags": ["retro", "unix", "cde", "motif", "nostalgia", "desktop", "workstation"],
+  "created_at": "2025-08-09",
+  "updated_at": "2025-08-09",
+  "marmite_version": ">=0.2.6",
+  "extra_config_allowed": {
+      "fediverse_verification": {
+          "enabled": true,
+          "required": false,
+          "default": false,
+          "description": "Enable Fediverse Username Verification by adding rel=\"me\" to the user's profile URL",
+          "type": "string",
+          "example": "https://mastodon.social/@username"
+      }
+  },
+  "features": [
+    "Authentic CDE/Motif window styling",
+    "Floating window layout for blog posts",
+    "3D beveled borders and buttons",
+    "Classic Unix workstation aesthetics",
+    "Terminal-style tagline display",
+    "CDE dialog-style markdown alerts",
+    "Responsive design maintaining retro feel",
+    "Search functionality with CDE window",
+    "Multiple font support (MS fonts + Atkinson Hyperlegible)"
+  ],
+  "customization": {
+    "colors": "Edit CSS custom properties in static/cde-style.css - includes full CDE color palette",
+    "layout": "Modify templates in templates/ directory for window arrangements",
+    "content": "Use Markdown fragments in content/ directory",
+    "fonts": "Interface uses Pixelated MS Sans Serif, content uses Atkinson Hyperlegible"
+  }
+}

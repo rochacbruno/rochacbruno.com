@@ -1,5 +1,5 @@
 ---
-tags: django,python,english
+tags: django,python,english,gettext
 ---
 
 # Stop using underscore as alias for gettext
@@ -21,6 +21,11 @@ This is a bad practice, I call it **"The Thousand Dollar Mistake".**
 ## History about this practice
 
 The practice of using underscore (`_`) as an alias for gettext comes from the GNU gettext library, which has been around since the 1990s. In C and other languages, `_()` became the de facto standard for marking strings for translation. When Python adopted gettext, this convention carried over, and Django followed suit. The underscore was chosen because it's short, unobtrusive, and doesn't clutter the code when you have many translatable strings.
+
+
+> [!important]
+> As pointed out by Osvaldo Santana on the [[#comments]] there are some external tools that will expect the exact form `_()` ad those tools will
+> statically analyse the codebase looking for the pattern `"\s_(.*.)"`, so if you use external translations tools it might be better to stick with this patten and instead put linters in place to check for reassignment of `_` 
 
 ## What it does 
 

@@ -1,1 +1,1 @@
-⭐ **NOVIDADE!** treinamento **[Python para DevOps]** na LINUXTips
+📢 **NOVIDADE!** treinamento **[Python para DevOps]** na LINUXTips
