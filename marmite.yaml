@@ -2,7 +2,7 @@ name: Bruno Rocha
 tagline: $ echo free {software,web}
 url: 'https://rochacbruno.com'
 language: pt
-pagination: 10
+pagination: 5
 pages_title: $ ls ~/Pages/
 tags_title: SELECT * FROM posts GROUP BY tag
 tags_content_title: SELECT * FROM posts WHERE tag = '$tag'
@@ -56,7 +56,7 @@ authors:
         - https://go.rocha.social/@bruno
       - - About 
         - about.html
-theme: cde
+theme: 1997
 publish_md: true  
 source_repository: "https://github.com/rochacbruno/rochacbruno.com.br/tree/main/content"
 image_provider: picsum
