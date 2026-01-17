@@ -1,1 +1,1 @@
-📢 **NOVIDADE!** treinamento **[Python para DevOps]** na LINUXTips
+Follow me on the [Fediverse]
