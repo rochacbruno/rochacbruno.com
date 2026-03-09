@@ -14,6 +14,8 @@
 [Ansible]: https://ansible.com
 [Ansible Github]: https://github.com/ansible
 [Ansible Automation Platform]: https://ansible.com
+[Openshift]: https://github.com/openshift
+[Openshift Container Platform]: https://github.com/openshift
 [Youtube]: https://youtube.com/@codeshowbr
 [Codeshow]: https://youtube.com/@codeshowbr
 [Twitch]: https://twitch.tv/codeshow
@@ -25,3 +27,11 @@
 [Python Web]:  https://linuxtips.io/instrutor/bruno-rocha/
 [Python DevOps]: https://linuxtips.io/python-para-devops/
 [Python para DevOps]: https://linuxtips.io/python-para-devops/
+[OpenShift Installer Github]: https://github.com/openshift/installer
+[dotp Github]: https://github.com/rochacbruno/dotp
+[DankMaterialShell Github]: https://github.com/AvengeMedia/DankMaterialShell
+[dms-plugin-registry Github]: https://github.com/AvengeMedia/dms-plugin-registry
+[DankCalculator Github]: https://github.com/rochacbruno/DankCalculator
+[WorldClock Github]: https://github.com/rochacbruno/WorldClock
+[DankNiriWindows Github]: https://github.com/rochacbruno/DankNiriWindows
+[snac_ynh Github]: https://github.com/YunoHost-Apps/snac_ynh

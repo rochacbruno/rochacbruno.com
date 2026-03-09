@@ -16,12 +16,13 @@ A list of tools, hardware, practices that I use.
 
 ## Software
 
-- Endeavour OS (Arch Linux)
-- KDE Plasma
-- Terminator
+- Fedora Linux
+- NiriWM
+- Dank Material Shell
+- Kitty terminal
 - ZSH
 - Starship
-- Micro Editor
+- Vim 9 Editor
 - Kate Editor
 - [Marmite]
 
@@ -30,6 +31,7 @@ A list of tools, hardware, practices that I use.
 
 - Python
 - Rust
+- Go
 - Bash
 - YAML
 - CSS/JS/HTML (old style)
