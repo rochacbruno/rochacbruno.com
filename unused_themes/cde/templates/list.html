@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block seo %}
+    {{ super()}}
+    {%- if author is defined -%}
+    {% include "json_ld_author.html" ignore missing%}
+    {%- else -%}
+    {% include "json_ld_index.html" ignore missing%}
+    {%- endif -%}
+{% endblock %}
+
+{# List template - used for index page, tag pages, author pages, etc. #}
+{# This template receives 'content_list' with an array of posts/pages to display #}
+
+{% block main %}
+
+{# Page Title (shown for non-index pages) #}
+{% if title and current_page != "index.html" %}
+<!-- <header class="list-header">
+    <h1 class="list-title">{{ title }}</h1>
+</header> -->
+{% endif %}
+
+{# Author Profile with IndieWeb h-card (for author pages) #}
+{% if author is defined %}
+<div class="author-profile h-card">
+    <div class="author-info">
+        {% if author.avatar %}
+        <img src="{{url_for(path=author.avatar)}}" alt="{{ author.name }}" class="author-avatar u-photo">
+        {% endif %}
+        <div class="author-details">
+            <h2 class="author-name p-name">{{ author.name }}</h2>
+            <p class="author-content-count">Author of {{ total_content }} post{% if total_content > 1 %}s{% endif %}</p>
+            {% if author.bio %}
+            <p class="author-bio p-note">{{ author.bio }}</p>
+            {% endif %}
+            {% if author.links %}
+            <div class="author-links">
+                {% for link in author.links %}
+                <button onclick="window.open('{{ url_for(path=link.1) }}', '{% if link.1 is starting_with("http") %}_blank{% else %}_self{% endif %}')">{{ link.0 }}</button>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{# Content List with IndieWeb h-feed #}
+{% if content_list %}
+    {% if title %}<h1 class="p-name" style="display: none;">{{ title }}</h1>{% endif %}
+    {% for item in content_list %}
+    <article class="content-item-window h-entry">
+        {# CDE Window with post title in title bar #}
+        <div class="post-window">
+            <div class="post-title-bar">
+                <div class="post-title-bar-text">
+                    <a href="{{url_for(path=item.slug ~ '.html')}}" class="p-name">{{ item.title }}</a>
+                </div>
+            </div>
+            <div class="post-window-body">
+                <a class="u-url" href="{{url_for(path=item.slug ~ '.html')}}" style="display: none;"></a>
+                {% if item.date %}<time class="dt-published" datetime="{{ item.date | date(format='%+') }}" style="display: none;">{{ item.date | default_date_format }}</time>{% endif %}
+                
+                {# Item Banner (if available) #}
+                {% if item.banner_image %}
+                <div class="item-banner">
+                    <img src="{{url_for(path=item.banner_image)}}" alt="{{ item.title }}" />
+                </div>
+                {% endif %}
+
+                {# Item Metadata (for posts with dates) #}
+                {% if item.date %}
+                <div class="item-meta">
+                    <time class="item-date" datetime="{{ item.date | date(format='%+') }}">
+                        {{ item.date | default_date_format }}
+                    </time>
+
+                    {# Authors with IndieWeb h-card #}
+                    {% if item.authors %}
+                    <span class="item-authors">
+                        by
+                        {% for author in item.authors %}
+                        {% set slug = "author-" ~ author | trim | slugify %}
+                        {% set link = slug ~ ".html"%}
+                        <span class="h-card p-author"><a href="{{url_for(path=link)}}" class="item-author p-name u-url">{{ author }}</a></span>{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </span>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                {# Item Description/Excerpt with IndieWeb p-summary #}
+                {% if item.description %}
+                <div class="item-description">
+                    <p class="p-summary">{{ item.description }}</p>
+                </div>
+                {% else %}
+                {# Auto-generate excerpt from content #}
+                <div class="item-excerpt">
+                    <p class="p-summary">{{ item.html | striptags | truncate(length=200, end='...') }}</p>
+                </div>
+                {% endif %}
+
+                {# Item Footer with Tags and Read More #}
+                <footer class="item-footer">
+                    {# Tags with IndieWeb p-category #}
+                    {% if item.tags %}
+                    <div class="item-tags">
+                        {% for tag in item.tags | slice(end=3) %}
+                        {% set slug = "tag-" ~ tag | trim | slugify %}
+                        {% set link = slug ~ ".html"%}
+                        <span class="item-tag p-category">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {# Read More Link #}
+                    <div class="item-read-more">
+                        <button onclick="window.location.href='{{url_for(path=item.slug ~ '.html')}}'">
+                            Open →
+                        </button>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </article>
+    {% endfor %}
+{% else %}
+{# Empty State #}
+<div class="empty-content window" style="margin: 20px auto; max-width: 400px;">
+    <div class="title-bar">
+        <div class="title-bar-text">No Content</div>
+    </div>
+    <div class="window-body">
+        <p style="text-align: center; padding: 20px;">📁 No content found.</p>
+    </div>
+</div>
+{% endif %}
+
+{# Pagination #}
+{% if total_pages > 1 %}
+<div class="pagination-window">
+    <div class="window">
+        <div class="title-bar">
+            <div class="title-bar-text">Page Navigation</div>
+        </div>
+        <div class="window-body">
+            <div class="pagination-controls">
+                {% if previous_page %}
+                <button onclick="window.location.href='{{url_for(path=previous_page)}}'">
+                    ← Previous
+                </button>
+                {% else %}
+                <button disabled>← Previous</button>
+                {% endif %}
+                
+                <span class="pagination-info">
+                    Page {{ current_page_number }} of {{ total_pages }}
+                </span>
+                
+                {% if next_page %}
+                <button onclick="window.location.href='{{url_for(path=next_page)}}'">
+                    Next →
+                </button>
+                {% else %}
+                <button disabled>Next →</button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="{{language}}">
+<head>
+    <!-- Basic Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Marmite" />
+    {%- block head %}
+    <title>{% if title %}{{title}} | {%endif%}{{ site.name }}</title>
+    <!-- Favicon - Place your favicon.ico in static folder -->
+    <link rel="icon" type="image/x-icon" href="{{url_for(path='static/favicon.ico')}}">
+    <!-- Theme Stylesheets -->
+    <!-- CDE Style Theme -->
+    <link rel="stylesheet" type="text/css" href="{{url_for(path='static/cde-style.css')}}">
+    <!-- Custom CSS - Add custom.css in your site root to override theme styles -->
+    <link rel="stylesheet" type="text/css" href="{{url_for(path='static/custom.css')}}">
+    {%- endblock %}
+
+    <!-- SEO and OpenGraph Meta Tags -->
+    <!-- Customize these for better social media sharing -->
+    {% block seo %}
+    <meta property="og:title" content="{% if title %}{{title}}{% else %}{{ site.name }}{% endif %}">
+    <meta property="og:description" content="{{ site.tagline }}">
+    {% if site.url %}
+    <meta property="og:url" content="{{site.url}}">
+    {% endif %}
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{site.name}}">
+    {% endblock %}
+    {% if site.extra.fediverse_verification %}
+    <link rel="me" href="{{site.extra.fediverse_verification}}">
+    {% endif %}
+    <!-- RSS Feeds -->
+    <!-- Auto-generated RSS feeds for your content -->
+    {% block feeds %}
+    {%include 'base_feeds.html' ignore missing%}
+    {% endblock %}
+
+    <!-- Custom HTML Head Content -->
+    <!-- Use content/_htmlhead.md to inject custom HTML here -->
+    {% if htmlhead is defined %}
+    {{ htmlhead }}
+    {% endif %}
+</head>
+<body>
+    
+    <!-- Desktop Container -->
+    <div class="desktop-container">
+        
+        <!-- Header Window -->
+        <div class="window header-window">
+            <!-- Window Title Bar -->
+            <div class="title-bar">
+                <div class="title-bar-text announcement">{% if announce is defined %}{{ announce }}{%else%}Common Blogging Environment{% endif %}</div>
+            </div>
+            
+            <!-- Window Body -->
+            <div class="window-body">
+                <!-- Header Section -->
+                {% if header is defined %}
+                   {{ header}}
+                {% else %}
+                <header class="site-header">
+                    <!-- Site Title -->
+                    <fieldset class="tagline">
+                        <legend>{{ site.name }}</legend>
+                        <div class="h-card">
+                            {% if site.logo_image %}
+                            <img src="{{url_for(path=site.logo_image)}}" alt="{{ site.name }}" class="u-photo" style="max-width: 64px; float: left; margin-right: 12px;">
+                            {% endif %}
+                            {% if site.tagline %}
+                            <p class="site-tagline p-note">{{ site.tagline }}</p>
+                            {% endif %}
+                            {% if content_list is defined %}
+                                {% if title %}
+                                <p class="page-title-in-tagline">{{ title }}</p>
+                                {% endif %}
+                            {% endif %}
+                            <div style="clear: both;"></div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Navigation Menu as CDE Front Panel -->
+                    {% if menu %}
+                    <menu role="tablist">
+                        <!-- Home button -->
+                        <li role="tab" class="nav-home" {% if current_page == "index.html" %}aria-selected="true"{% endif %}>
+                            <a href="{{url_for(path='')}}">🏠 Home</a>
+                        </li>
+                        
+                        {% for item in menu %}
+                        {% set name = item.0 %}
+                        {% set url = item.1 %}
+                        <li role="tab" {% if current_page and current_page == url %}aria-selected="true"{% endif %}>
+                            {% if current_page and current_page == url %}
+                            <a href="#">{{name}}</a>
+                            {% else %}
+                            <a {% if url is starting_with("http") %} href="{{url}}" target="_blank" {% else %} href="{{url_for(path=url)}}"{% endif %}>{{ name }}</a>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                        
+                        {% if site.enable_search %}
+                        <li role="tab">
+                            <a href="#" id="search-toggle">🔍 Search</a>
+                        </li>
+                        {% endif %}
+                    </menu>
+                    {% endif %}
+                </header>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Hero Window (Index page only) -->
+        {% if hero is defined and current_page == "index.html" %}
+        <div class="window hero-window">
+            <!-- Window Title Bar -->
+            <div class="title-bar">
+                <div class="title-bar-text">Welcome</div>
+            </div>
+            
+            <!-- Window Body -->
+            <div class="window-body hero-window-body">
+                {{ hero }}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Main Content Area -->
+        {% if content_list is defined %}
+        <!-- Floating posts for list pages -->
+        <div class="posts-container">
+            {% block main -%}{%- endblock %}
+        </div>
+        <!-- Status Bar Footer -->
+        <div class="simple-status-bar">
+            {% if footer is defined %}
+               {{ footer}}
+            {% else %}
+            <p>{{ site.footer | safe }}</p>
+            {% endif %}
+        </div>
+        {% else %}
+        <!-- Main Content Window for other pages -->
+        <div class="window main-window">
+            <!-- Window Title Bar -->
+            <div class="title-bar">
+                <div class="title-bar-text">
+                    {% if title %}
+                        {{ title }}
+                    {% else %}
+                        Content
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Window Body -->
+            <div class="window-body">
+                <div class="container">
+                    <!-- Main Content -->
+                    <main class="main-content">
+                        <div class="sunken-panel" style="padding: 12px;">
+                            {% block main -%}{%- endblock %}
+                        </div>
+                    </main>
+
+                    <!-- Sidebar -->
+                    {% if sidebar is defined %}
+                    <aside class="sidebar">
+                        <fieldset>
+                            <legend>Sidebar</legend>
+                            {{ sidebar }}
+                        </fieldset>
+                    </aside>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Status Bar Footer -->
+            <div class="status-bar">
+                {% if footer is defined %}
+                   {{ footer}}
+                {% else %}
+                <p class="status-bar-field">{{ site.footer | safe }}</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Search Window Overlay -->
+        {% if site.enable_search %}
+        <div class="search-overlay" id="search-overlay">
+            <div class="window">
+                <div class="title-bar">
+                    <div class="title-bar-text">Search</div>
+                    <button class="search-close-x" id="search-close-x" aria-label="Close">✕</button>
+                </div>
+                <div class="window-body">
+                    <div class="field-row">
+                        <label for="marmite-search-input">Search for:</label>
+                        <input type="text" id="marmite-search-input">
+                    </div>
+                    <div class="marmite-search-bar-result" style="display: none;">
+                        <ul id="marmite-search-bar-result" class="tree-view"></ul>
+                    </div>
+                    <div class="field-row" style="justify-content: flex-end; margin-top: 12px;">
+                        <button id="search-close-btn">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- JavaScript -->
+    <!-- Add your custom JavaScript in static/script.js -->
+    {% block scripts %}
+    <script src="{{url_for(path='static/script.js')}}"></script>
+    <!-- Custom JavaScript - Add custom.js in your site root to override theme scripts -->
+    <script src="{{url_for(path='static/custom.js')}}"></script>
+    {% if site.enable_search %}
+    <script type="module" src="{{url_for(path='static/search.js')}}"></script>
+    {% endif %}
+    {% endblock %}
+
+    <!-- Custom HTML Tail Content -->
+    <!-- Use content/_htmltail.md to inject custom HTML here -->
+    {% if htmltail is defined %}
+    {{ htmltail }}
+    {% endif %}
+</body>
+</html>
