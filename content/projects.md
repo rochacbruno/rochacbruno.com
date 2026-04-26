@@ -101,13 +101,15 @@ Niri windows plugin for DankMaterialShell.
 
 ## Content
 
-### CodeShow
+### Youtube and Twitch channels 
+
+> formerly knows as **CodeShow**
 
 Youtube and Twitch Channel where I publish educational videos
 about programming and career.
 
-- [Youtube]
-- [Twitch]
+- @oBrunoCesarRocha on [Youtube]
+- @BrunoCesarRocha on [Twitch]
 
 ### py2rs
 

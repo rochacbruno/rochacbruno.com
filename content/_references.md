@@ -16,9 +16,9 @@
 [Ansible Automation Platform]: https://ansible.com
 [Openshift]: https://github.com/openshift
 [Openshift Container Platform]: https://github.com/openshift
-[Youtube]: https://youtube.com/@codeshowbr
+[Youtube]: https://youtube.com/@oBrunoCesarRocha
 [Codeshow]: https://youtube.com/@codeshowbr
-[Twitch]: https://twitch.tv/codeshow
+[Twitch]: https://twitch.tv/brunocesarrocha
 [py2rs]: https://rochacbruno.github.io/py2rs/
 [rss2bsky]: https://github.com/rochacbruno/rss2bsky
 [blog]: https://rochacbruno.com
