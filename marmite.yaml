@@ -46,7 +46,7 @@ default_author: rochacbruno
 authors:
   rochacbruno:
     name: Bruno Rocha
-    avatar: https://github.com/rochacbruno.png
+    avatar: ./avatar.png
     bio: |
       Principal Software Engineer at Red Hat / Ansible, Free Software Advocate, 
       Member of The Python Software Foundation, Rust Enthusiast, Linux user since 1998,
@@ -64,3 +64,6 @@ authors:
 publish_md: true  
 source_repository: "https://github.com/rochacbruno/rochacbruno.com.br/tree/main/content"
 image_provider: picsum
+file_mapping:
+  - source: content/media/avatar.*
+    dest: .
